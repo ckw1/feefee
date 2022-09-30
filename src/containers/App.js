@@ -154,7 +154,6 @@ function App(props) {
 export const light = {
   palette: {
     mode: 'light',
-    
   },
 }
 export const dark = {
