@@ -5,6 +5,11 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import Popover from '@mui/material/Popover'
+import Divider from '@mui/material/Divider'
+// import Fab from '@mui/material/Fab';
+import Box from '@mui/material/Box'
+
+import IconButton from '@mui/material/IconButton'
 
 import NormalIcon from '../colorIcons/normal.svg'
 import FireIcon from '../colorIcons/fire.svg'
@@ -285,7 +290,7 @@ const Type = (props) => {
 
   const handleAttackClick = (index) => {
     AttackType.forEach((x, i) => {
-      if (i != index) {
+      if (i !== index) {
         x.on = false
       }
     })
@@ -299,7 +304,7 @@ const Type = (props) => {
       }
     )
 
-    if (AttackType[index].on == true) {
+    if (AttackType[index].on === true) {
       setAttackStatus(p)
     } else {
       setAttackStatus([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
@@ -307,11 +312,11 @@ const Type = (props) => {
   }
 
   const handleDefenseClick = (index) => {
-    let counter = DefenseType.reduce((total, x) => total + (x.on == true), 0)
+    let counter = DefenseType.reduce((total, x) => total + (x.on === true), 0)
     if (counter < 2) {
       DefenseType[index].on = !DefenseType[index].on
     } else {
-      if (DefenseType[index].on == true) {
+      if (DefenseType[index].on === true) {
         DefenseType[index].on = !DefenseType[index].on
       }
     }
@@ -320,18 +325,18 @@ const Type = (props) => {
       setDefenseType([...DefenseType])
     }
 
-    let finalcount = DefenseType.filter((x) => x.on == true).length
+    let finalcount = DefenseType.filter((x) => x.on === true).length
 
     var p = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 
-    if (finalcount == 0) {
+    if (finalcount === 0) {
       p = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-    } else if (finalcount == 1) {
-      let first = DefenseType.findIndex((y) => y.on == true)
+    } else if (finalcount === 1) {
+      let first = DefenseType.findIndex((y) => y.on === true)
       p = defenseTable[first]
-    } else if (finalcount == 2) {
-      let first = DefenseType.findIndex((y) => y.on == true)
-      let last = DefenseType.findLastIndex((y) => y.on == true)
+    } else if (finalcount === 2) {
+      let first = DefenseType.findIndex((y) => y.on === true)
+      let last = DefenseType.findLastIndex((y) => y.on === true)
       let t1 = defenseTable[first]
       let t2 = defenseTable[last]
       p = t1.map((z, i) => {
@@ -344,22 +349,22 @@ const Type = (props) => {
 
   return (
     <div>
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+      <Grid
+        container
+        rowSpacing={1}
+        columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+        justifyContent="space-evenly"
+        alignItems="center">
         {AttackType.map((item, index) => (
-          <Grid item xs={2}>
+          <Grid item>
             <Button
+            color="warning"
               size="small"
               variant={item.on ? 'contained' : 'outlined'}
               onClick={() => handleAttackClick(index)}>
-                <img src={icon[index]} width="32"></img>
-              {item.name}
+              <img src={icon[index]} width="32"></img>
+              <Typography variant="caption">{item.name}</Typography>
             </Button>
-            {/* <Button variant="contained" color="success">
-                Success
-            </Button>
-            <Button variant="outlined" color="error">
-                Error
-            </Button> */}
           </Grid>
         ))}
       </Grid>
@@ -367,17 +372,27 @@ const Type = (props) => {
       <table>
         <tr>
           <td colspan="18">
-            {AttackType.filter((x) => x.on == true).map((item, index) => (
-              <Button>{item.name}</Button>
+            {AttackType.filter((x) => x.on === true).map((item, index) => (
+              <div>
+                <Button fullWidth variant="contained" color="error">
+                  <Typography>Attacking with </Typography>
+                  <img
+                    src={icon[AttackType.findIndex((x) => x.name == item.name)]}
+                    width="32"></img>
+                  <Typography>{item.name}</Typography>
+                </Button>
+              </div>
             ))}
           </td>
         </tr>
         <tr>
           {AttackType.map((item, index) => (
-            <td>
-              <Card>
-                <CardContent>
-                  <img aria-owns="attack" src={icon[index]} width="32"></img>
+            <td id="type">
+              <Card raised sx={{ 'padding-bottom': '0px', width: '50px' }}>
+                <CardContent sx={{ padding: '8px' }}>
+                  <div>
+                    <img aria-owns="attack" src={icon[index]} width="32"></img>
+                  </div>
                   {/* <Popover
                     id="attack"
                     open
@@ -392,7 +407,21 @@ const Type = (props) => {
                     }}>
                     The content of the Popover.
                   </Popover> */}
-                  <Typography>{AttackStatus[index]}x</Typography>
+                  <IconButton
+                    size="small"
+                    color={
+                      AttackStatus[index] === 1
+                        ? 'primary'
+                        : AttackStatus[index] > 1
+                        ? 'error'
+                        : 'secondary'
+                    }>
+                    <Typography
+                      //   align="center"
+                      variant={AttackStatus[index] === 1 ? 'body1' : 'button'}>
+                      {AttackStatus[index]}x
+                    </Typography>
+                  </IconButton>
                 </CardContent>
               </Card>
             </td>
@@ -405,14 +434,25 @@ const Type = (props) => {
         </tr> */}
       </table>
 
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+      <Divider sx={{ margin: "10px", borderBottomWidth: 5 }} />
+
+{/* DefenseDefenseDefenseDefenseDefenseDefenseDefenseDefenseDefenseDefenseDefenseDefenseDefenseDefenseDefenseDefenseDefenseDefenseDefenseDefenseDefenseDefenseDefenseDefenseDefenseDefenseDefenseDefenseDefenseDefense */}
+
+      <Grid
+        container
+        rowSpacing={1}
+        columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+        justifyContent="space-evenly"
+        alignItems="center">
         {DefenseType.map((item, index) => (
-          <Grid item xs={2}>
+          <Grid item>
             <Button
+            color="success"
               size="small"
               variant={item.on ? 'contained' : 'outlined'}
               onClick={() => handleDefenseClick(index)}>
-              {item.name}
+              <img src={icon[index]} width="32"></img>
+              <Typography variant="caption">{item.name}</Typography>
             </Button>
           </Grid>
         ))}
@@ -420,10 +460,29 @@ const Type = (props) => {
       <table>
         <tr>
           {DefenseType.map((item, index) => (
-            <td>
-              <Card>{item.alias}</Card>
-
-              <div>{DefenseStatus[index]}</div>
+            <td id="type">
+              <Card raised sx={{ 'padding-bottom': '0px', width: '50px' }}>
+                <CardContent sx={{ padding: '8px' }}>
+                  <div>
+                    <img src={icon[index]} width="32"></img>
+                  </div>
+                  <IconButton
+                    size="small"
+                    color={
+                      DefenseStatus[index] === 1
+                        ? 'primary'
+                        : DefenseStatus[index] > 1
+                        ? 'error'
+                        : 'secondary'
+                    }>
+                    <Typography
+                      //   align="center"
+                      variant={DefenseStatus[index] === 1 ? 'body1' : 'button'}>
+                      {DefenseStatus[index]}x
+                    </Typography>
+                  </IconButton>
+                </CardContent>
+              </Card>
             </td>
           ))}
         </tr>
@@ -434,8 +493,16 @@ const Type = (props) => {
         </tr> */}
         <tr>
           <td colspan="18">
-            {DefenseType.filter((x) => x.on == true).map((item, index) => (
-              <Button color="secondary">{item.name}</Button>
+            {DefenseType.filter((x) => x.on === true).map((item) => (
+              <span>
+              <Button variant="contained" color="success" sx={{width: DefenseType.filter((x) => x.on === true).length === 1 ? "100%" : "49%", margin: "1px"}}>
+                
+                <img
+                  src={icon[DefenseType.findIndex((x) => x.name == item.name)]}
+                  width="32"></img>
+                <Typography>{item.name}</Typography>
+              </Button>
+            </span>
             ))}
           </td>
         </tr>

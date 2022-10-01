@@ -2,6 +2,6 @@ table {
     display: block;
   }
   
-td {
+#type {
     display: inline-block;
   }
