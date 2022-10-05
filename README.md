@@ -1,6 +1,6 @@
 # Feefee - A simple and user-friendly Pokemon information site
 
-https://feefee.ga/
+https://feefee.ga/ \
 https://feefee.pages.dev/
 
 ![](type_attack.png)![](type_defense.png)
