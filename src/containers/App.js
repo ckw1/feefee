@@ -124,7 +124,7 @@ function App(props) {
         <React.Fragment>
         <HashRouter>
           {appbar()}
-          <Container style={{ 'padding-top': '55px'}}>
+          <Container sx={{ maxWidth:'1000px'  }} maxWidth={false} style={{ 'padding-top': '55px'}}>
           
             <Routes>
             <Route exact path="/" element={<Type />} />
