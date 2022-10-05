@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { HashRouter , Route, Link, Routes  } from 'react-router-dom'
-import About from './About'
-import Welcome from './Welcome'
 import Type from './Type'
+import Dex from './Dex'
 
 
 import TextField from '@mui/material/TextField'
@@ -93,7 +92,7 @@ function App(props) {
 
   const listitem = [
     { name: 'Type', path: '/', icon: null },
-    { name: 'About', path: '/about', icon: null },
+    { name: 'PokeDex', path: '/dex', icon: null },
   ]
   const list = () => (
     <Box
@@ -129,7 +128,7 @@ function App(props) {
           
             <Routes>
             <Route exact path="/" element={<Type />} />
-            <Route  path="/about/" element={<Welcome />} />
+            <Route  path="/dex/" element={<Dex />} />
             {/* <Route exact path="/Profile">
               <Profile />
             </Route> */}
