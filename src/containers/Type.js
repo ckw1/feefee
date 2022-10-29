@@ -495,7 +495,7 @@ const Type = (props) => {
           <td colspan="18">
             {DefenseType.filter((x) => x.on === true).map((item) => (
               <span>
-              <Button variant="contained" color="success" sx={{width: DefenseType.filter((x) => x.on === true).length === 1 ? "100%" : DefenseType.filter((x) => x.on === true).length === 2 ? "49.5%" : "33%", margin: "1px"}}>
+              <Button variant="contained" color="success" sx={{width: DefenseType.filter((x) => x.on === true).length === 1 ? "100%" : DefenseType.filter((x) => x.on === true).length === 2 ? "49%" : "32.5%", margin: "1px"}}>
                 
                 <img
                   src={icon[DefenseType.findIndex((x) => x.name == item.name)]}
