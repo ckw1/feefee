@@ -313,7 +313,7 @@ const Type = (props) => {
 
   const handleDefenseClick = (index) => {
     let counter = DefenseType.reduce((total, x) => total + (x.on === true), 0)
-    if (counter < 2) {
+    if (counter < 3) {
       DefenseType[index].on = !DefenseType[index].on
     } else {
       if (DefenseType[index].on === true) {
@@ -321,7 +321,7 @@ const Type = (props) => {
       }
     }
 
-    if (counter <= 2) {
+    if (counter <= 3) {
       setDefenseType([...DefenseType])
     }
 
@@ -495,7 +495,7 @@ const Type = (props) => {
           <td colspan="18">
             {DefenseType.filter((x) => x.on === true).map((item) => (
               <span>
-              <Button variant="contained" color="success" sx={{width: DefenseType.filter((x) => x.on === true).length === 1 ? "100%" : "49%", margin: "1px"}}>
+              <Button variant="contained" color="success" sx={{width: DefenseType.filter((x) => x.on === true).length === 1 ? "100%" : DefenseType.filter((x) => x.on === true).length === 2 ? "49.5%" : "33%", margin: "1px"}}>
                 
                 <img
                   src={icon[DefenseType.findIndex((x) => x.name == item.name)]}
